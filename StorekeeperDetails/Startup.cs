@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using StorekeeperDetails.EfStuff;
 using StorekeeperDetails.EfStuff.DbModel;
 using StorekeeperDetails.EfStuff.Repositories;
+using StorekeeperDetails.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +34,20 @@ namespace StorekeeperDetails
 
             services.AddScoped<DetailRepository>();
             services.AddScoped<StoreKeeperRepository>();
+
+            var provider = new MapperConfigurationExpression();
+            provider.CreateMap<Detail, DetailViewModel>()
+                .ForMember(dview => dview.KeeperId, db => db.MapFrom(detail => detail.Keeper.Id))
+                .ForMember(dview => dview.KeeperName, db => db.MapFrom(detail => detail.Keeper.Name));
+
+            provider.CreateMap<DetailViewModel, Detail>();
+
+            provider.CreateMap<StoreKeeper, StoreKeeperViewModel>();
+            provider.CreateMap<StoreKeeperViewModel, StoreKeeper>();
+
+            var mapperConfiguration = new MapperConfiguration(provider);
+            var mapper = new Mapper(mapperConfiguration);
+            services.AddScoped<IMapper>(x => mapper);
 
 
             services.AddHttpContextAccessor();

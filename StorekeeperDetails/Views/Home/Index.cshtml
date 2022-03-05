@@ -1,57 +1,71 @@
-﻿
+﻿@using StorekeeperDetails.Models
+@model DataViewModel
 
 <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Номенклатурный код </th>
-      <th scope="col">Наименование</th>
-      <th scope="col">Кладовщик ФИО</th>
-      <th scope="col">Дата создания</th>
-      <th scope="col">Дата удаления</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    
-  </tbody>
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Номенклатурный код </th>
+            <th scope="col">Наименование</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Кладовщик ФИО</th>
+            <th scope="col">Дата создания</th>
+            <th scope="col">Дата удаления</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var detail in Model.Details)
+        {
+            <tr>
+                <th scope="row">@detail.Id</th>
+                <td>@detail.NomenCode</td>
+                <td>@detail.Name</td>
+                <td>@detail.Count</td>
+                <td>@detail.KeeperName</td>
+                <td>@detail.DateCreated.ToShortDateString()</td>
+                <td>@detail.DateDeleted.ToShortDateString()</td>
+                <td><a href="/Home/RemoveDetail?DeatilId=@detail.Id">Удалить</a></td>
+            </tr>
+        }
+
+
+    </tbody>
 </table>
 
-<form>
-  <div class="form-group">
-    <label for="exampleInputText">Номенклатурный код</label>
-    <input type="text" class="form-control" placeholder="Enter NomenCode">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputText">Название</label>
-    <input type="text" class="form-control" placeholder="Enter Name">
-  </div>
-  <div class="form-group">
-    <label for="exampleInput">Количество</label>
-    <input type="number" class="form-control" placeholder="Count">
-  </div>
-  <div class="form-group">
-    <label for="exampleFormControlSelect1">Кладовщик</label>
-    <select class="form-control">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
-    </select>
-  </div>
-
-  <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+<form action="/Home/Index" method="post">
+    <fieldset class="form-group border p-3">
+        <legend class="w-auto px-2">Добавить деталь</legend>
+        <div class="form-group">
+            <label for="exampleInputText">Номенклатурный код</label>
+            <input required="required" name="NomenCode" type="text" class="form-control" placeholder="Enter NomenCode">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputText">Название</label>
+            <input required="required" name="Name" type="text" class="form-control" placeholder="Enter Name">
+        </div>
+        <div class="form-group">
+            <label for="exampleInput">Количество</label>
+            <input name="Count" type="number" class="form-control" placeholder="Count">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Кладовщик</label>
+            <select required="required" name="KeeperId" class="form-control">
+                @foreach(var keeper in Model.Keepers)
+                {
+                    <option value="@keeper.Id">@keeper.Name</option>
+                }
+               
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="exampleInput">Дата создания</label>
+            <input required="required" name="DateCreated" type="date" class="form-control" placeholder="Choose date">
+        </div>
+        <div class="form-group">
+            <label for="exampleInput">Дата удаления</label>
+            <input name="DateDeleted" type="date" class="form-control" placeholder="Choose date">
+        </div>
+        <button type="submit" class="btn btn-primary">Добавить</button>
+    </fieldset>
 </form>

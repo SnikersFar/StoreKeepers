@@ -1,0 +1,41 @@
+﻿@using StorekeeperDetails.Models
+@model List<StoreKeeperViewModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">ФИО</th>
+            <th scope="col">Количество видов деталей</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var detail in Model)
+        {
+            <tr>
+                <th scope="row">@detail.Id</th>
+                <td>@detail.Name</td>
+                <td>@detail.Details.Where(d => d.IsActive).ToList().Count</td>
+                @if (@detail.Details.Where(d => d.IsActive).ToList().Count == 0)
+                {
+                    <td><a href="/Home/RemoveKeeper?keeperId=@detail.Id">Удалить</a></td>
+                } else
+                {
+                     <td></td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+<form action="/Home/Keepeers" method="post">
+    <fieldset class="form-group border p-3">
+        <legend class="w-auto px-2">Добавить Кладовщика</legend>
+        <div class="form-group">
+            <label for="exampleInputText">ФИО</label>
+            <input required="required" name="Name" type="text" class="form-control" placeholder="Enter Full Name">
+        </div>
+        <button type="submit" class="btn btn-primary">Добавить</button>
+    </fieldset>
+</form>
