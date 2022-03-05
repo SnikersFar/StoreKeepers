@@ -1,6 +1,57 @@
 ﻿
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Номенклатурный код </th>
+      <th scope="col">Наименование</th>
+      <th scope="col">Кладовщик ФИО</th>
+      <th scope="col">Дата создания</th>
+      <th scope="col">Дата удаления</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    
+  </tbody>
+</table>
+
+<form>
+  <div class="form-group">
+    <label for="exampleInputText">Номенклатурный код</label>
+    <input type="text" class="form-control" placeholder="Enter NomenCode">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputText">Название</label>
+    <input type="text" class="form-control" placeholder="Enter Name">
+  </div>
+  <div class="form-group">
+    <label for="exampleInput">Количество</label>
+    <input type="number" class="form-control" placeholder="Count">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Кладовщик</label>
+    <select class="form-control">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+  </div>
+
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
