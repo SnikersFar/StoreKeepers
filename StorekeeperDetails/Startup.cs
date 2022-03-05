@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StorekeeperDetails.EfStuff;
+using StorekeeperDetails.EfStuff.DbModel;
+using StorekeeperDetails.EfStuff.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,10 +30,12 @@ namespace StorekeeperDetails
             var connectString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=StoreKD;Integrated Security=True;";
             services.AddDbContext<WebContext>(x => x.UseSqlServer(connectString));
 
+            services.AddScoped<DetailRepository>();
+            services.AddScoped<StoreKeeperRepository>();
+
+
             services.AddHttpContextAccessor();
-
             services.AddControllersWithViews();
-
             services.AddSignalR();
         }
 
